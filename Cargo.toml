@@ -5,8 +5,8 @@ edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-leptos = { version = "0.7.2", features = ["csr", "nightly"] }
-leptos_router = { version = "0.7.2", features = ["nightly"] }
+leptos = { version = "0.7.3", features = ["csr", "nightly"] }
+leptos_router = { version = "0.7.3", features = ["nightly"] }
 wasm-bindgen = "0.2.99"
 wasm-bindgen-futures = "0.4.49"
 js-sys = "0.3.76"
