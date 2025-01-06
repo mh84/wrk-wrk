@@ -1,17 +1,11 @@
-mod current;
-mod day;
-mod footer;
-mod header;
 mod nav_point;
-mod not_found;
-mod tasks;
-mod week;
+mod tab;
+mod tab_list;
+mod task_list;
+mod task_search;
 
-pub use current::Current;
-pub use day::Day;
-pub use footer::Footer;
-pub use header::Header;
 pub use nav_point::NavPoint;
-pub use not_found::NotFound;
-pub use tasks::Tasks;
-pub use week::Week;
+pub use tab::Tab;
+pub use tab_list::TabList;
+pub use task_list::TaskList;
+pub use task_search::TaskSearch;

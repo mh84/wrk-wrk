@@ -2,7 +2,9 @@ use crate::{components::*, icons::NavPointIcon};
 use leptos::prelude::*;
 
 #[component]
-pub fn Footer(current_path: RwSignal<&'static str>) -> impl IntoView {
+pub fn Footer() -> impl IntoView {
+    let current_path = RwSignal::new("/");
+
     view! {
         <div class="h-20 flex flex-row items-center">
             <NavPoint path="/" icon=NavPointIcon::Bulldozer caption="Current" current_path=current_path />
