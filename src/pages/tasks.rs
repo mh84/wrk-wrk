@@ -3,7 +3,7 @@ use serde::Serialize;
 use serde_wasm_bindgen::{from_value, to_value};
 use shared::Task;
 
-use crate::{components::*, invoke};
+use crate::{components::*, icons::PlusCircle, invoke};
 
 #[derive(Default, PartialEq, Eq, Copy, Clone)]
 pub enum TasksTab {
@@ -47,6 +47,21 @@ pub fn Tasks() -> impl IntoView {
         <TabList tabs=tabs current_tab=current_tab />
         <TaskSearch pattern=pattern set_pattern=set_pattern />
         <TaskList tasks=tasks />
+        {
+            move || if current_tab.get().eq(active) {
+                view! {
+                    <a
+                        class="absolute right-8 bottom-28 h-10 rounded-lg bg-green-400 shadow-md flex flex-row px-2 space-x-2 justify-center items-center"
+                        href="/add_task"
+                    >
+                        <PlusCircle />
+                        <p>Add task</p>
+                    </a>
+                }.into_any()
+            } else {
+                "".into_any()
+            }
+        }
     }
 }
 

@@ -3,10 +3,7 @@ use leptos::prelude::*;
 use crate::icons::*;
 
 #[component]
-pub fn TaskSearch(
-    pattern: ReadSignal<String>,
-    set_pattern: WriteSignal<String>,
-) -> impl IntoView {
+pub fn TaskSearch(pattern: ReadSignal<String>, set_pattern: WriteSignal<String>) -> impl IntoView {
     view! {
         <div class="flex flex-row my-4 items-center">
             <input

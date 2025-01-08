@@ -13,6 +13,7 @@ pub fn Content() -> impl IntoView {
                 <Route path=path!("/day") view=Day />
                 <Route path=path!("/week") view=Week />
                 <Route path=path!("/tasks") view=Tasks />
+                <Route path=path!("/add_task") view=AddTask />
             </Routes>
         </div>
     }

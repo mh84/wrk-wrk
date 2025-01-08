@@ -10,9 +10,7 @@ pub fn TaskList(tasks: ReadSignal<Vec<Task>>) -> impl IntoView {
                     .iter()
                     .map(|task| view! {
                         <div class="flex flex-row px-2 py-2 border-t border-gray-400 last:border-b items-center">
-                            <div>
-                                {task.name.clone()}
-                            </div>
+                            <p>{task.name.clone()}</p>
                             <div class="rounded text-sm bg-gray-400 flex items-center px-2 absolute right-6">
                                 {"Pause"}
                             </div>

@@ -11,4 +11,3 @@ pub fn XCircle() -> impl IntoView {
         </svg>
     }
 }
-
