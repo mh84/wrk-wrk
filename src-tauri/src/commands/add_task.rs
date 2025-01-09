@@ -2,12 +2,11 @@ use anyhow::Result;
 use tauri::State;
 
 use crate::database::PoolProvider;
-use shared::TaskKind;
 
 #[tauri::command]
 pub async fn add_task(
     name: String,
-    taskkind: TaskKind,
+    taskkind: i64,
     state: State<'_, PoolProvider>,
 ) -> Result<String, String> {
     let pool = &state.0;
@@ -19,7 +18,7 @@ pub async fn add_task(
         "#,
     )
     .bind(name)
-    .bind(Into::<i64>::into(taskkind))
+    .bind(taskkind)
     .bind(0)
     .execute(pool)
     .await

@@ -47,8 +47,8 @@ pub fn Tasks() -> impl IntoView {
         <TabList tabs=tabs current_tab=current_tab />
         <TaskSearch pattern=pattern set_pattern=set_pattern />
         <TaskList tasks=tasks />
-        {
-            move || if current_tab.get().eq(active) {
+        {move || {
+            if current_tab.get().eq(active) {
                 view! {
                     <a
                         class="absolute right-8 bottom-28 h-10 rounded-lg bg-green-400 shadow-md flex flex-row px-2 space-x-2 justify-center items-center"
@@ -57,22 +57,23 @@ pub fn Tasks() -> impl IntoView {
                         <PlusCircle />
                         <p>Add task</p>
                     </a>
-                }.into_any()
+                }
+                    .into_any()
             } else {
                 "".into_any()
             }
-        }
+        }}
     }
 }
 
 #[derive(Serialize)]
-struct Args {
+struct GetTaskArgs {
     pattern: String,
     finished: bool,
 }
 
 async fn get_tasks(pattern: String, finished: bool) -> Vec<Task> {
-    if let Ok(args) = to_value(&Args { pattern, finished }) {
+    if let Ok(args) = to_value(&GetTaskArgs { pattern, finished }) {
         from_value(invoke("get_tasks", args).await).unwrap_or_default()
     } else {
         vec![]

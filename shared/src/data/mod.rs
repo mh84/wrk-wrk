@@ -33,3 +33,35 @@ impl From<TaskKind> for i64 {
         }
     }
 }
+
+impl From<TaskKind> for String {
+    fn from(value: TaskKind) -> Self {
+        String::from(match value {
+            TaskKind::Pause => "Pause",
+            TaskKind::Development => "Development",
+            TaskKind::CodeReview => "CodeReview",
+            TaskKind::Test => "Test",
+            TaskKind::Meeting => "Meeting",
+            TaskKind::DevOps => "DevOps",
+            TaskKind::Support => "Support",
+            TaskKind::Consulting => "Consulting",
+            TaskKind::Other => "Other",
+        })
+    }
+}
+
+impl<'a> Into<TaskKind> for &'a str {
+    fn into(self) -> TaskKind {
+        match self {
+            "Pause" => TaskKind::Pause,
+            "Development" => TaskKind::Development,
+            "CodeReview" => TaskKind::CodeReview,
+            "Test" => TaskKind::Test,
+            "Meeting" => TaskKind::Meeting,
+            "DevOps" => TaskKind::DevOps,
+            "Support" => TaskKind::Support,
+            "Consulting" => TaskKind::Consulting,
+            _ => TaskKind::Other,
+        }
+    }
+}

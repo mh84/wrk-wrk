@@ -16,9 +16,15 @@ pub fn NavPoint(
         <a class="flex flex-col grow items-center" href=path on:click=on_click>
             {move || match icon {
                 NavPointIcon::Bulldozer => view! { <Bulldozer selected=selected() /> }.into_any(),
-                NavPointIcon::CalenderDot => view! { <CalendarDot selected=selected() /> }.into_any(),
-                NavPointIcon::CalenderDots => view! { <CalendarDots selected=selected() /> }.into_any(),
-                NavPointIcon::ClipboardText => view! { <ClipboardText selected=selected() /> }.into_any(),
+                NavPointIcon::CalenderDot => {
+                    view! { <CalendarDot selected=selected() /> }.into_any()
+                }
+                NavPointIcon::CalenderDots => {
+                    view! { <CalendarDots selected=selected() /> }.into_any()
+                }
+                NavPointIcon::ClipboardText => {
+                    view! { <ClipboardText selected=selected() /> }.into_any()
+                }
             }}
             <p>{caption}</p>
         </a>

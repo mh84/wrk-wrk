@@ -7,7 +7,7 @@ use super::*;
 #[component]
 pub fn Content() -> impl IntoView {
     view! {
-        <div class="px-4 grow shadow-lg flex flex-col space-y-4">
+        <div class="px-4 pb-4 grow shadow-lg flex flex-col space-y-4 overflow-y-auto">
             <Routes fallback=NotFound>
                 <Route path=path!("/") view=Current />
                 <Route path=path!("/day") view=Day />
