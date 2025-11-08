@@ -1,17 +1,19 @@
 use leptos::{prelude::*, task::spawn_local};
 use serde::Serialize;
 use serde_wasm_bindgen::to_value;
-use shared::TaskKind;
+use shared::{TaskKind, TaskKindValue};
 
 use crate::{
-    components::RadioButton, icons::{ArrowLeft, FloppyDisk}, invoke
+    components::RadioButton,
+    icons::{ArrowLeft, FloppyDisk},
+    invoke,
 };
 
 #[component]
 pub fn AddTask() -> impl IntoView {
     let navigate = leptos_router::hooks::use_navigate();
     let (name, set_name) = signal(String::new());
-    let (taskkind, set_taskkind) = signal::<String>(TaskKind::Development.into());
+    let (taskkind, set_taskkind) = signal::<String>(String::from("Development"));
 
     view! {
         <a href="/tasks" class="flex flex-row items-center space-x-2">
@@ -24,31 +26,35 @@ pub fn AddTask() -> impl IntoView {
                 <input
                     type="text"
                     bind:value=(name, set_name)
+                    minlength=3
+                    required=true
                     class="grow border-0 focus:border-0 focus:ring-transparent border-b-2 focus:border-b-2 border-gray-400 focus:border-yellow-500 grow"
                 />
             </div>
-            <RadioButton name="TaskKind".into() value=TaskKind::Development.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::CodeReview.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::Test.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::Meeting.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::DevOps.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::Support.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::Consulting.into() set_taskkind=set_taskkind />
-            <RadioButton name="TaskKind".into() value=TaskKind::Other.into() set_taskkind=set_taskkind />
-        </div>        
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Development set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::CodeReview set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Test set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Meeting set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::DevOps set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Support set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Consulting set_taskkind=set_taskkind />
+            <RadioButton name="TaskKind".into() task_kind=TaskKind::Other set_taskkind=set_taskkind />
+        </div>
         <div
             on:click=move |_| {
-                let navigate = navigate.clone();
                 let name = name.get();
-                spawn_local(async move {
-                    add_task(name, Into::<TaskKind>::into(&*taskkind.get()).into()).await;
-                    navigate("/tasks", Default::default());            
-                });
+                if name.len() > 3 {
+                    let navigate = navigate.clone();
+                    spawn_local(async move {
+                        add_task(name, TaskKindValue::from(Into::<TaskKind>::into(&*taskkind.get())).db_value).await;
+                        navigate("/tasks", Default::default());
+                    });
+                }
             }
             class="absolute right-8 bottom-28 h-10 rounded-lg bg-green-400 shadow-md flex flex-row px-2 space-x-2 justify-center items-center"
         >
             <FloppyDisk />
-            <p>Save task</p>
+            <p>{"Save task"}</p>
         </div>
     }
 }

@@ -7,10 +7,10 @@ use std::fs;
 use anyhow::Result;
 use futures_core::future::BoxFuture;
 use sqlx::{
+    Pool, Sqlite,
     error::BoxDynError,
     migrate::{Migration, MigrationSource, MigrationType, Migrator},
     sqlite::SqlitePool,
-    Pool, Sqlite,
 };
 use tauri::{AppHandle, Manager};
 

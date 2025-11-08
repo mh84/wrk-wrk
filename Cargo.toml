@@ -5,24 +5,20 @@ edition = "2024"
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
-leptos = { version = "0.7.3", features = ["csr", "nightly"] }
-leptos_router = { version = "0.7.3", features = ["nightly"] }
-wasm-bindgen = "0.2.99"
-wasm-bindgen-futures = "0.4.49"
-js-sys = "0.3.76"
-serde = { version = "1.0.217", features = ["derive"] }
+leptos = { version = "0.8.12", features = ["csr", "nightly"] }
+leptos_router = { version = "0.8.9", features = ["nightly"] }
+wasm-bindgen = "0.2.105"
+wasm-bindgen-futures = "0.4.55"
+js-sys = "0.3.82"
+serde = { version = "1.0.228", features = ["derive"] }
 serde-wasm-bindgen = "0.6.5"
 shared = { path="./shared" }
 
 [workspace]
 members = [ "shared", "src-tauri"]
 
-[profile.dev]
-#panic = "abort"
-
 [profile.release]
 strip = true
 lto = "thin"
 opt-level = "z"
 codegen-units = 1
-panic = "abort"

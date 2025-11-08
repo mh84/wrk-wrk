@@ -1,30 +1,35 @@
 use leptos::prelude::*;
 
+use shared::{TaskKind, TaskKindValue};
+
 #[component]
 pub fn RadioButton(
     name: String,
-    value: String,
+    task_kind: TaskKind,
     set_taskkind: WriteSignal<String>,
 ) -> impl IntoView {
-    let label_value = value.clone();
+    let task_kind_value = TaskKindValue::from(task_kind.clone());
+    let task_kind_value_clone = task_kind_value.clone();
+    let class = String::from("rounded text-sm flex items-center px-2 ") + &task_kind_value.color;
 
     view! {
         <div class="flex flex-row space-x-6 items-center">
             <div class="w-20 text-right pr-2">
                 <input
                     type="radio"
-                    id={value.clone()}
+                    id={task_kind_value.name.clone()}
                     name=name
-                    value={value.clone()}
+                    value={task_kind_value.name.clone()}
+                    checked=task_kind.eq(&TaskKind::Development)
                     on:input=move |ev| {
                         if event_target_checked(&ev) {
-                            set_taskkind.set(value.clone());
+                            set_taskkind.set(task_kind_value.name.clone());
                         }
                     }
                 />
             </div>
-            <label for={label_value.clone()} class="rounded text-sm bg-gray-400 flex items-center px-2">
-                {label_value.clone()}
+            <label for={task_kind_value_clone.name} class=class>
+                {task_kind_value_clone.name.clone()}
             </label>
         </div>
     }

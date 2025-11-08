@@ -10,4 +10,4 @@ port = 1420
 open = false
 
 [tools]
-tailwindcss = "3.4.17"
+tailwindcss = "4.1.17"

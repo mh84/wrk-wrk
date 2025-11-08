@@ -19,7 +19,7 @@ pub async fn get_tasks(
         r#"
             SELECT *
             FROM tasks
-            WHERE task_kind >= 0 AND finished = ?
+            WHERE task_kind > 0 AND finished = ?
         "#,
     )
     .bind(finished)

@@ -4,7 +4,7 @@ pub use task::Task;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Default, PartialEq, Eq, Serialize, Deserialize, Clone)]
+#[derive(Default, PartialEq, Eq, Serialize, Deserialize, Clone)]
 pub enum TaskKind {
     #[default]
     Pause = 0,
@@ -18,41 +18,68 @@ pub enum TaskKind {
     Other = 8,
 }
 
-impl From<TaskKind> for i64 {
+#[derive(Clone)]
+pub struct TaskKindValue {
+    pub name: String,
+    pub color: String,
+    pub db_value: i64,
+}
+
+impl From<TaskKind> for TaskKindValue {
     fn from(value: TaskKind) -> Self {
         match value {
-            TaskKind::Pause => 0,
-            TaskKind::Development => 1,
-            TaskKind::CodeReview => 2,
-            TaskKind::Test => 3,
-            TaskKind::Meeting => 4,
-            TaskKind::DevOps => 5,
-            TaskKind::Support => 6,
-            TaskKind::Consulting => 7,
-            TaskKind::Other => 8,
+            TaskKind::Pause => Self {
+                name: "Pause".into(),
+                color: "bg-gray-400".into(),
+                db_value: 0,
+            },
+            TaskKind::Development => Self {
+                name: "Development".into(),
+                color: "bg-green-500".into(),
+                db_value: 1,
+            },
+            TaskKind::CodeReview => Self {
+                name: "CodeReview".into(),
+                color: "bg-green-400".into(),
+                db_value: 2,
+            },
+            TaskKind::Test => Self {
+                name: "Test".into(),
+                color: "bg-green-300".into(),
+                db_value: 3,
+            },
+            TaskKind::Meeting => Self {
+                name: "Meeting".into(),
+                color: "bg-yellow-300".into(),
+                db_value: 4,
+            },
+            TaskKind::DevOps => Self {
+                name: "DevOps".into(),
+                color: "bg-yellow-500".into(),
+                db_value: 5,
+            },
+            TaskKind::Support => Self {
+                name: "Support".into(),
+                color: "bg-red-300".into(),
+                db_value: 6,
+            },
+            TaskKind::Consulting => Self {
+                name: "Consulting".into(),
+                color: "bg-red-400".into(),
+                db_value: 7,
+            },
+            TaskKind::Other => Self {
+                name: "Other".into(),
+                color: "bg-blue-500".into(),
+                db_value: 8,
+            },
         }
     }
 }
 
-impl From<TaskKind> for String {
-    fn from(value: TaskKind) -> Self {
-        String::from(match value {
-            TaskKind::Pause => "Pause",
-            TaskKind::Development => "Development",
-            TaskKind::CodeReview => "CodeReview",
-            TaskKind::Test => "Test",
-            TaskKind::Meeting => "Meeting",
-            TaskKind::DevOps => "DevOps",
-            TaskKind::Support => "Support",
-            TaskKind::Consulting => "Consulting",
-            TaskKind::Other => "Other",
-        })
-    }
-}
-
-impl<'a> Into<TaskKind> for &'a str {
-    fn into(self) -> TaskKind {
-        match self {
+impl From<&str> for TaskKind {
+    fn from(value: &str) -> TaskKind {
+        match value {
             "Pause" => TaskKind::Pause,
             "Development" => TaskKind::Development,
             "CodeReview" => TaskKind::CodeReview,
